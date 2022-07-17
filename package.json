@@ -1,0 +1,18 @@
+{
+	"name": "githubmoji",
+	"description": "Adds an gitmoji picker on GitHub commit message inputs.",
+	"version": "1.0.0",
+	"main": "src/index.js",
+	"scripts": {
+		"format": "prettier --write ."
+	},
+	"keywords": [
+		"gitmoji",
+		"github"
+	],
+	"author": "malted",
+	"license": "MIT",
+	"devDependencies": {
+		"prettier": "^2.7.1"
+	}
+}

@@ -1,0 +1,19 @@
+{
+	"manifest_version": 2,
+	"name": "githubmoji",
+	"version": "1.0",
+
+	"description": "Adds an gitmoji picker on GitHub commit message inputs.",
+
+	"icons": {
+		"48": "icons/githubmoji-icon-48.png",
+		"96": "icons/githubmoji-icon-96.png"
+	},
+
+	"content_scripts": [
+		{
+			"matches": ["*://*.github.com/*"],
+			"js": ["src/index.js"]
+		}
+	]
+}
