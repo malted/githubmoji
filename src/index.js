@@ -630,10 +630,10 @@ window.onload = () => {
 				// Add the predicted emoji to the button
 				predictive.innerHTML = el.emoji;
 
-				// When the button is clicked, insert the emoji at the start of the input, along with a space.
+				// When the button is clicked, replace the input with the emoji, along with a space.
 				predictive.onclick = event => {
 					event.preventDefault();
-					commitSummaryInput.value = el.emoji + " " + commitSummaryInput.value;
+					commitSummaryInput.value = el.emoji + " ";
 
 					// Regain focus on the input so that the user can continue typing.
 					commitSummaryInput.focus();
