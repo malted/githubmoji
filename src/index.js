@@ -572,83 +572,85 @@ const gitmojis = [
 	}
 ];
 
-const commitSummaryInput = document.getElementById("commit-summary-input");
-// commitSummaryInput.style.flexGrow = 1;
-const commitSummaryGroup = document.createElement("div");
-// commitSummaryGroup.style.display = "flex";
-// commitSummaryGroup.style.alignItems = "center";
-// commitSummaryGroup.style.gap = "1rem";
-commitSummaryInput.insertAdjacentElement("afterend", commitSummaryGroup); // Insert the group after the input
-commitSummaryGroup.insertAdjacentElement("beforeend", commitSummaryInput); // Move the input to the group
+window.onload = () => {
+	const commitSummaryInput = document.getElementById("commit-summary-input");
+	// commitSummaryInput.style.flexGrow = 1;
+	const commitSummaryGroup = document.createElement("div");
+	// commitSummaryGroup.style.display = "flex";
+	// commitSummaryGroup.style.alignItems = "center";
+	// commitSummaryGroup.style.gap = "1rem";
+	commitSummaryInput.insertAdjacentElement("afterend", commitSummaryGroup); // Insert the group after the input
+	commitSummaryGroup.insertAdjacentElement("beforeend", commitSummaryInput); // Move the input to the group
 
-const buttonGroup = document.createElement("div");
-buttonGroup.classList.add("BtnGroup");
-buttonGroup.style.display = "flex";
-commitSummaryGroup.insertAdjacentElement("afterbegin", buttonGroup); // Insert the button group at the start of the group
+	const buttonGroup = document.createElement("div");
+	buttonGroup.classList.add("BtnGroup");
+	buttonGroup.style.display = "flex";
+	commitSummaryGroup.insertAdjacentElement("afterbegin", buttonGroup); // Insert the button group at the start of the group
 
-function removeAllPredictions() {
-	const elements = document.getElementsByClassName("ghmoji-predictive");
-	while (elements.length > 0) {
-		elements[0].parentNode.removeChild(elements[0]);
-	}
-}
-
-// When a new character is typed into the commit summary message input.
-commitSummaryInput.oninput = () => {
-	// Remove the predictions from the last keystroke, ready for this one.
-	removeAllPredictions();
-
-	const commitMsg = commitSummaryInput.value;
-
-	// Replace Gitmoji codes with the corresponding emoji, for example :bug: becomes 🐛.
-	const replacement = gitmojis.find(el => commitMsg.includes(el.code));
-	if (replacement) {
-		commitSummaryInput.value = commitMsg.replace(replacement.code, replacement.emoji);
+	function removeAllPredictions() {
+		const elements = document.getElementsByClassName("ghmoji-predictive");
+		while (elements.length > 0) {
+			elements[0].parentNode.removeChild(elements[0]);
+		}
 	}
 
-	let predictiveCount = 0;
+	// When a new character is typed into the commit summary message input.
+	commitSummaryInput.oninput = () => {
+		// Remove the predictions from the last keystroke, ready for this one.
+		removeAllPredictions();
 
-	// Predictively create a button for each emoji
-	gitmojis.every(el => {
-		// All the Gitmoji descriptions include spaces somewhere; break the loop if the input doesn't include meaningful content.
-		if (!commitMsg || commitMsg == "" || commitMsg == " ") return false;
+		const commitMsg = commitSummaryInput.value;
 
-		// Displaying every single match would not be good UX.
-		if (predictiveCount > 5) return false;
-
-		// Convert both to lowercase; it wouldn't make sense to not match "Fix" with "fix", for example.
-		if (el.description.toLowerCase().includes(commitMsg.toLowerCase())) {
-			const predictive = document.createElement("button");
-
-			// Use the existing GitHub CSS classes for the button.
-			predictive.classList.add("btn-sm", "btn", "BtnGroup-item", "ghmoji-predictive");
-
-			// Putting it here instead of the parent div so that there is no weird gap when there are no predictions
-			predictive.style.marginTop = "0.5rem";
-
-			// Add the predicted emoji to the button
-			predictive.innerHTML = el.emoji;
-
-			// When the button is clicked, insert the emoji at the start of the input, along with a space.
-			predictive.onclick = event => {
-				event.preventDefault();
-				commitSummaryInput.value = el.emoji + " " + commitSummaryInput.value;
-
-				// Regain focus on the input so that the user can continue typing.
-				commitSummaryInput.focus();
-
-				// Remove the predictions, as the user has selected one.
-				removeAllPredictions();
-			};
-
-			// Add this button after the others.
-			buttonGroup.insertAdjacentElement("beforeend", predictive);
-
-			// Increment the count to stop displaying too many predictions.
-			predictiveCount++;
+		// Replace Gitmoji codes with the corresponding emoji, for example :bug: becomes 🐛.
+		const replacement = gitmojis.find(el => commitMsg.includes(el.code));
+		if (replacement) {
+			commitSummaryInput.value = commitMsg.replace(replacement.code, replacement.emoji);
 		}
 
-		// Continue to the next array element.
-		return true;
-	});
-};
+		let predictiveCount = 0;
+
+		// Predictively create a button for each emoji
+		gitmojis.every(el => {
+			// All the Gitmoji descriptions include spaces somewhere; break the loop if the input doesn't include meaningful content.
+			if (!commitMsg || commitMsg == "" || commitMsg == " ") return false;
+
+			// Displaying every single match would not be good UX.
+			if (predictiveCount > 5) return false;
+
+			// Convert both to lowercase; it wouldn't make sense to not match "Fix" with "fix", for example.
+			if (el.description.toLowerCase().includes(commitMsg.toLowerCase())) {
+				const predictive = document.createElement("button");
+
+				// Use the existing GitHub CSS classes for the button.
+				predictive.classList.add("btn-sm", "btn", "BtnGroup-item", "ghmoji-predictive");
+
+				// Putting it here instead of the parent div so that there is no weird gap when there are no predictions
+				predictive.style.marginTop = "0.5rem";
+
+				// Add the predicted emoji to the button
+				predictive.innerHTML = el.emoji;
+
+				// When the button is clicked, insert the emoji at the start of the input, along with a space.
+				predictive.onclick = event => {
+					event.preventDefault();
+					commitSummaryInput.value = el.emoji + " " + commitSummaryInput.value;
+
+					// Regain focus on the input so that the user can continue typing.
+					commitSummaryInput.focus();
+
+					// Remove the predictions, as the user has selected one.
+					removeAllPredictions();
+				};
+
+				// Add this button after the others.
+				buttonGroup.insertAdjacentElement("beforeend", predictive);
+
+				// Increment the count to stop displaying too many predictions.
+				predictiveCount++;
+			}
+
+			// Continue to the next array element.
+			return true;
+		});
+	};
+}
