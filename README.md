@@ -4,8 +4,7 @@
 A Firefox addon that adds a predictive gitmoji picker to GitHub commit message inputs. 
 ## [Get it here](https://addons.mozilla.org/en-GB/firefox/addon/githubmoji/)
 
-![image](https://user-images.githubusercontent.com/59726149/183230777-fd5e73e8-395f-4d12-9c83-94f1fac304df.png)
-
+<img src="https://user-images.githubusercontent.com/59726149/183232181-ffce6fde-ac15-47f0-b3cc-5fdfeefaab13.png" width="50%" />
  
 ## Building
 
