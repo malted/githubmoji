@@ -1,9 +1,10 @@
 {
 	"name": "githubmoji",
 	"description": "Adds an gitmoji picker on GitHub commit message inputs.",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"main": "src/index.js",
 	"scripts": {
+		"build": "esbuild src/index.js --bundle --outfile=dist/index.js",
 		"format": "prettier --write ."
 	},
 	"keywords": [
@@ -13,6 +14,10 @@
 	"author": "malted",
 	"license": "MIT",
 	"devDependencies": {
+		"esbuild": "^0.14.53",
 		"prettier": "^2.7.1"
+	},
+	"dependencies": {
+		"selector-observer": "^2.1.6"
 	}
 }
