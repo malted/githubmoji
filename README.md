@@ -16,9 +16,9 @@ A Firefox addon that adds a predictive gitmoji picker to GitHub commit message i
 `cd githubmoji`
 
 #### Install the required packages
-`pnpm install`
+`npm install`
 
 #### Bundle the code
-`pnpm run build`
+`npm run build`
 
-###### (I'm using node `v16.16.0` and pnpm `6.11.0`.)
+###### (I'm using node `v16.16.0` and npm `8.11.0`.)
