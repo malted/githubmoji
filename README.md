@@ -1,4 +1,6 @@
 # githubmoji
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ma1ted/githubmoji/Node.js%20CI)
+
 A Firefox addon that adds a predictive gitmoji picker to GitHub commit message inputs. 
 ## [Get it here](https://addons.mozilla.org/en-GB/firefox/addon/githubmoji/)
 
